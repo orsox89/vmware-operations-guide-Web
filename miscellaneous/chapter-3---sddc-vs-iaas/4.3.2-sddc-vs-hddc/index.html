@@ -1,0 +1,9151 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+   <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="generator" content="Hugo 0.148.2">
+   <meta name="description" content="">
+
+
+   <link rel="icon" href="/vmware-operations-guide-web/images/favicon.png" type="image/png">
+
+   <title>2. SDDC vs HDDC :: VMware Operations Guide</title>
+
+   
+
+<link href="/vmware-operations-guide-web/css/clr-ui.min.css?1754975713" rel="stylesheet">
+<link href="/vmware-operations-guide-web/css/fontawesome-all.min.css?1754975713" rel="stylesheet">
+<link href="/vmware-operations-guide-web/css/featherlight.min.css?1754975713" rel="stylesheet">
+<link href="/vmware-operations-guide-web/css/perfect-scrollbar.min.css?1754975713" rel="stylesheet">
+<link href="/vmware-operations-guide-web/css/auto-complete.css?1754975713" rel="stylesheet">
+<link href="/vmware-operations-guide-web/css/clarity-theme.css?1754975713" rel="stylesheet">
+<link href="/vmware-operations-guide-web/css/jquery.dataTables.min.css?1754975713" rel="stylesheet">
+<link href="/vmware-operations-guide-web/css/hugo-theme.css?1754975713" rel="stylesheet">
+<link href="/vmware-operations-guide-web/css/theme.css?1754975713" rel="stylesheet">
+<link href="/vmware-operations-guide-web/css/top-table.css?1754975713" rel="stylesheet">
+
+
+
+
+<script src="/vmware-operations-guide-web/js/jquery-3.3.1.min.js?1754975713"></script>
+
+
+
+   
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4E70Q7EBYT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4E70Q7EBYT');
+</script>
+ </head>
+
+
+   <body class="" data-url="/vmware-operations-guide-web/miscellaneous/chapter-3---sddc-vs-iaas/4.3.2-sddc-vs-hddc/">
+   <div class="main-container">
+      <header class="header-6">
+   <div class="branding">
+      <a href="https://orsox89.github.io/vmware-operations-guide-web/" class="nav-link">
+         <svg width="50%" height="50%" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100%" height="100%" fill="#222723" />
+    <path d="M190 235H60C56.0217 235 52.2064 233.42 49.3934 230.607C46.5803 227.794 45 223.978 45 220V205H30C26.0218 205 22.2064 203.42 19.3934 200.607C16.5804 197.794 15 193.978 15 190V60C15 56.0217 16.5804 52.2064 19.3934 49.3934C22.2064 46.5803 26.0218 45 30 45H45V30C45 26.0218 46.5803 22.2064 49.3934 19.3934C52.2064 16.5804 56.0217 15 60 15H190C193.978 15 197.794 16.5804 200.607 19.3934C203.42 22.2064 205 26.0218 205 30V45H220C223.978 45 227.794 46.5803 230.607 49.3934C233.42 52.2064 235 56.0217 235 60V190C235 193.978 233.42 197.794 230.607 200.607C227.794 203.42 223.978 205 220 205H205V220C205 223.978 203.42 227.794 200.607 230.607C197.794 233.42 193.978 235 190 235ZM30 55C28.6739 55 27.4021 55.5268 26.4645 56.4645C25.5268 57.4021 25 58.6739 25 60V190C25 191.326 25.5268 192.598 26.4645 193.536C27.4021 194.473 28.6739 195 30 195H55V220C55 221.326 55.5268 222.598 56.4645 223.536C57.4021 224.473 58.6739 225 60 225H190C191.326 225 192.598 224.473 193.536 223.536C194.473 222.598 195 221.326 195 220V195H220C221.326 195 222.598 194.473 223.536 193.536C224.473 192.598 225 191.326 225 190V60C225 58.6739 224.473 57.4021 223.536 56.4645C222.598 55.5268 221.326 55 220 55H195V30C195 28.6739 194.473 27.4021 193.536 26.4645C192.598 25.5268 191.326 25 190 25H60C58.6739 25 57.4021 25.5268 56.4645 26.4645C55.5268 27.4021 55 28.6739 55 30V55H30Z" fill="#85C81A"/>
+    <path d="M47.5 170C46.1739 170 44.9021 169.473 43.9645 168.536C43.0268 167.598 42.5 166.326 42.5 165V79.225C42.5016 77.4441 43.209 75.7364 44.4671 74.4759C45.7252 73.2155 47.4316 72.505 49.2125 72.5H72.6687V49.225C72.6704 47.4452 73.3769 45.7384 74.6336 44.4781C75.8904 43.2179 77.5952 42.5066 79.375 42.5H165C166.326 42.5 167.598 43.0268 168.536 43.9645C169.473 44.9021 170 46.1739 170 47.5C170 48.8261 169.473 50.0979 168.536 51.0355C167.598 51.9732 166.326 52.5 165 52.5H82.6688V82.5H52.5V165C52.5 166.326 51.9732 167.598 51.0355 168.536C50.0979 169.473 48.8261 170 47.5 170Z" fill="#85C81A"/>
+    <path d="M148.481 180H100.981C99.3234 180 97.7336 179.342 96.5615 178.169C95.3894 176.997 94.731 175.408 94.731 173.75V155H75.981C74.3234 155 72.7336 154.342 71.5615 153.169C70.3894 151.997 69.731 150.408 69.731 148.75V101.25C69.731 99.5924 70.3894 98.0027 71.5615 96.8306C72.7336 95.6585 74.3234 95 75.981 95H94.731V76.25C94.731 74.5924 95.3894 73.0027 96.5615 71.8306C97.7336 70.6585 99.3234 70 100.981 70H148.481C150.139 70 151.728 70.6585 152.9 71.8306C154.072 73.0027 154.731 74.5924 154.731 76.25V95H173.481C175.139 95 176.728 95.6585 177.9 96.8306C179.072 98.0027 179.731 99.5924 179.731 101.25V148.75C179.731 150.408 179.072 151.997 177.9 153.169C176.728 154.342 175.139 155 173.481 155H154.731V173.75C154.731 175.408 154.072 176.997 152.9 178.169C151.728 179.342 150.139 180 148.481 180ZM104.731 170H144.731V145H169.731V105H144.731V80H104.731V105H79.731V145H104.731V170Z" fill="#0095D3"/>
+</svg>
+
+         <span class="title">VMware Operations Guide</span>
+      </a>
+   </div>
+
+   <div class="clr-row flex-grow">
+      <div class="header-search clr-col-9">
+         
+<form id="clarity-search" class="search">
+   <label id="search-label" for="search_input">
+      <input id="search_input" class="search_input" type="text" placeholder="Search for keywords...">
+   </label>
+
+</form>
+
+
+
+
+      </div>
+      <div class="clr-col">
+         <div class="header-actions" align="center">
+    <a href="https://github.com/TheNewStellW/vmware-operations-guide" class="nav-link nav-icon" aria-label="Github" target="_blank">
+        <i class="fab fa-github fa-lg"></i>
+    </a>
+</div>
+      </div>
+   </div>
+</header>
+
+      <div class="content-container">
+         <div class="content-area">
+            <section id="body">
+               <div class="padding highlightable">
+                  <div class="body-search">
+                     
+<form id="clarity-search" class="search">
+   <label id="search-label" for="search_input">
+      <input id="search_input" class="search_input" type="text" placeholder="Search for keywords...">
+   </label>
+
+</form>
+
+
+
+
+                  </div>
+                  <div>
+                     <div id="top-bar">
+                        
+                        
+                        
+                        
+                        <div id="top-github-link">
+                           <a class="github-link" title='Edit this page'
+                              href="https://github.com/TheNewStellW/vmware-operations-guide/tree/main/content/Miscellaneous%5cChapter%203%20-%20SDDC%20vs%20IaaS%5c4.3.2-sddc-vs-hddc%5c_index.md"
+                              target="blank">
+                              <i class="fas fa-code-branch"></i>
+                              <span id="top-github-link-text">Edit this page</span>
+                           </a>
+                        </div>
+                        
+                        
+                        
+                        <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                           <span id="sidebar-toggle-span">
+                              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                                 <i class="fas fa-bars"></i>
+                              </a>
+                           </span>
+                           
+                           <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                           
+                           <span class="links">
+                              
+                              
+                              
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href='/vmware-operations-guide-web/'>VMware Operations Guide</a> > <a href='/vmware-operations-guide-web/miscellaneous/'>Miscellaneous</a> > <a href='/vmware-operations-guide-web/miscellaneous/chapter-3---sddc-vs-iaas/'>Chapter 3 - SDDC vs. IaaS</a> > 2. SDDC vs HDDC
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                              
+                           </span>
+                        </div>
+                        
+                        <div class="toc-menu">
+   <div class="wrapper">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#compute-function">Compute Function</a></li>
+    <li><a href="#storage-function">Storage Function</a></li>
+    <li><a href="#network-function">Network Function</a></li>
+    <li><a href="#people--process">People &amp; Process</a></li>
+  </ul>
+</nav>
+   </div>
+</div>
+
+                        
+                     </div>
+                  </div>
+                  <div id="head-tags">
+                     
+                  </div>
+                  
+                     <div id="body-inner">
+                        
+                        <h1>
+                           
+                           2. SDDC vs HDDC
+                        </h1>
+                        
+
+                        
+
+   
+   <p>We covered how a VM differs drastically to a physical server. Now let&rsquo;s take a look at the big picture, which is at the data center level. A data center consists of three major functions-compute, network, and storage. Security is not a function on its own, but a key property that each function has to deliver. We use the term compute to represent processing power namely CPU and Memory. In today&rsquo;s data centers Compute is also used when referencing converged infrastructure, where the server and storage have physically converged into one box. The industry term for this is Hyper-Converged Infrastructure (HCI). You will see later in the book that this convergence impacts how you architect and operate SDDC.</p>
+<p>VMware has moved to virtualize the network and storage functions as well, resulting in a data center that is fully virtualized and thus defined in the software. The software is the data center. This has resulted in the term SDDC. The book will make extensive comparison with the physical data center. For ease of reference, let&rsquo;s call the physical data center Hardware-Defined Data Center (HDDC).</p>
+<p>In SDDC, we no longer define the architecture in the physical layer. The physical layer is just there to provide resources. These resources are not aware of one another. The stickiness is reduced, and they become a commodity. In many cases, the hardware can even be replaced without incurring downtime to the VMs running on top.</p>
+<p>The next diagram shows one possibility of a data center that is defined in the software. We have drawn the diagram to state a point, so don&rsquo;t take this as the best practice for SDDC architecture. In the diagram, there are many virtual data centers (we draw three due to space in the book). Each virtual data center has its own set of virtual infrastructure (server, storage, network and security). They are independent of one another.</p>
+<p>A virtual data center is no longer contained in a single building bound by a physical boundary. Although long distance WAN bandwidth and latency are still limiting factors in 2021, the main thing here is you can architect your physical data centers as one or more logical data centers. You should be able to automatically, with just a few clicks in VMware Site Recovery Manager, move thousands of servers from data center A to data center B; alternatively, you can perform DR from four branch sites to a common HQ data center.</p>
+<p><img src="/vmware-operations-guide-web/miscellaneous/chapter-3---sddc-vs-iaas/4.3.2-sddc-vs-hddc/4.3.2-fig-1.png" alt="SDDC diagram"></p>
+<p>In our example, the virtual data centers run on top of two physical data centers. Large enterprises will probably have more than that (whether it is outsourced or not is a different matter). The two physical data centers are completely independent. Their hardware is not dependent on one another.</p>
+<ul>
+<li>
+<p>In the Compute function, there is no stretched cluster between 2 physical sites. Each site has its own vCenter. There is no need to protect vCenter with DR.</p>
+</li>
+<li>
+<p>In the Network function, there is no stretched VLAN between 2 physical sites. You do not have to worry about spanning tree or broadcast storm hitting multiple data centers. The physical sites can even be on a different network. Site 1 might be 10.10.x.x network, while Site 2 might be 20.20.x.x.</p>
+</li>
+<li>
+<p>In the Storage function, there is no array-based replication. Replication can be done independently from a storage protocol (FC, iSCSI, or NFS) and VMDK type (thick or thin). vSphere has built-in host-based replication via TCP/IP, named simply vSphere Replication. It can replicate individual VMs, and provides finer granularity than LUN-based replication. You might decide to keep the same storage vendor and protocol, but that&rsquo;s your choice, not something forced upon you.</p>
+</li>
+</ul>
+<p>We have drawn two vendors for each layer to show the message that hardware does not define the architecture. They are there to support the function of that layer (for example, Compute Function). So, you can have 10 vSphere clusters: 3 clusters could be Vendor A, and 7 clusters could be Vendor B.</p>
+<p>We are taking the &ldquo;shared-nothing architecture&rdquo; approach. This is a good thing, because you contain the failure domain. <a href="https://www.linkedin.com/in/ivanpepelnjak/">Ivan Pepelnjak</a>, an authority on data center networking architecture, states <a href="http://blog.ipspace.net/2012/10/if-something-can-fail-it-will.html">here</a> that &ldquo;Interconnected things tend to fail at the same time.&rdquo;</p>
+<p>Let&rsquo;s summarize the key differences between SDDC and HDDC. To highlight the differences, We&rsquo;re assuming in this comparison the physical data center is 0% virtualized and the virtual data center is 100% virtualized. For the virtual data center, we&rsquo;re assuming you have also adjusted your operation, because operating a virtual data center with a physical operation mindset results in a lot of frustration and suboptimal virtualization. This means your processes and organization chart have been adapted to a virtual data center.</p>
+<p>As data center wide Disaster Recovery (DR) is the litmus test that defines whether your data center is HDDC or SDDC, let&rsquo;s start with this.</p>
+<table>
+  <thead>
+      <tr>
+          <th><strong>HDDC</strong></th>
+          <th><strong>SDDC</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Data center migration is a major and expensive project.</td>
+          <td>The entire Virtual DC can be replicated and migrated. We have a customer who performed long distance vMotion over 8 weekends, hence achieving data center migration with 0 downtime.</td>
+      </tr>
+      <tr>
+          <td>Architecturally, DR is done on a per-application basis. Every application has its own bespoke solution.</td>
+          <td>DR is provided as a <em>service</em> by the platform. It is one solution for all applications. This enables data center-wide DR.</td>
+      </tr>
+      <tr>
+          <td>The standby server on the DR site is required. This increases the cost. Because the server has to be compatible with the associated production server, this increases complexity in a large environment.</td>
+          <td>No need for a standby server. The vSphere cluster on the DR site typically runs the non-production workload, which can be suspended (hibernate mode) during DR. The DR site can be of a different server brand and CPU.</td>
+      </tr>
+      <tr>
+          <td>DR is a manual process, relying on a run book written manually. It also requires all hands on deck. An unavailability of key IT resources when disaster strikes can impact the organization&rsquo;s ability to recover.</td>
+          <td>The entire DR steps can be automated. Once management decides to trigger DR, all that needs to be done is to execute the right recovery process in VMware Site Recovery Manager (SRM). No manual intervention.</td>
+      </tr>
+      <tr>
+          <td>A complete DR dry run is rarely done, as it is time consuming and requires production to be down.</td>
+          <td>A DR dry run can be done frequently, as it does not impact the production system. This is made by possible by having a virtual network that isolate the VMs participating in DR dry run. As a result, the dry run can even be done on the day before the actual planned DR.</td>
+      </tr>
+      <tr>
+          <td>The report produced after a DR exercise is manually typed. It is not possible to prove that what is documented in the Microsoft Word or Excel document is what actually happened in the data center.</td>
+          <td>The report is automatically generated, with no human intervention. It timestamps every step, and provides a status whether it was successful or not. The report can be used as audit proof</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="compute-function">Compute Function</h2>
+<table><colgroup><col style="width: 50%" /><col style="width: 50%" /></colgroup><thead><tr class="header"><th>HDDC</th><th>SDDC</th></tr></thead><tbody><tr class="odd"><td>1,000 physical servers (just an example, so we can provide a comparison).</td><td>The number of VM will be more than 1,000. It may even reach 2,000 VMs . The number of VMs is higher for multiple reasons: VM sprawl; the physical server tends to run multiple applications or instances whereas VM runs only one; DR is much easier and hence, more VMs are protected.</td></tr><tr class="even"><td>Growth is relatively static and predictable, and normally it is just one way (adding more servers).</td><td>The number of VMs can go up and down due to dynamic provisioning.</td></tr><tr class="odd"><td>Downtime for hardware maintenance or a technology refresh is a common job in a large environment due to component failure.</td><td>Planned downtime is eliminated with vMotion and storage vMotion.</td></tr><tr class="even"><td>5% to 10% average CPU utilization, especially in the CPU with a high core count.</td><td>~50% utilization for both VM and ESXi.</td></tr><tr class="odd"><td>Racks of physical boxes, often with a top-of-rack access switch and UPS. The data center is a large consumer of power.</td><td>Rack space requirements shrink drastically as servers are consolidated and the infrastructure is converged. There is a drastic reduction in overall space and power, although power consumption per rack is higher.</td></tr><tr class="even"><td>Low complexity. Lots of repetitive work and coordination work, but not a lot of expertise required.</td><td>High complexity. Less quantity, but deep expertise required. A lot less number of people, but each one is an expert.</td></tr><tr class="odd"><td>Availability and performance monitored by management tools, which normally uses an agent. It is typical for a server to have many agents.</td><td>Availability and performance monitoring happens via vCenter Server, and it's agentless for the infrastructure. All other management tools get their data from vCenter Server, not individual ESXi or VM. Application-level monitoring is typically done using agents within the Guest OS.</td></tr><tr class="even"><td><p>The word cluster generally means two or more servers joined with a heartbeat and shared storage, which is typically SAN.</p><p>In another context, the word cluster means a single application using shared-nothing hardware. A typical example here is Hadoop cluster.</p></td><td>The word cluster has a different meaning. It's a group of ESXi hosts sharing the workload. Normally, 8 to 16 hosts, not 2 - 4.</td></tr><tr class="odd"><td>High Availability (HA) is provided by clusterware, such as Microsoft MSCS and Veritas. Every cluster pair needs a shared storage, which is typically SAN. Typically, one service needs two physical servers with a physical network heartbeat; hence, most servers are not clustered as the cost and complexity is high.</td><td>HA is provided by vSphere HA. All VMs are protected, not just a small percentage. The need for traditional clustering software has reduced, and a new kind of clustering software emerges. It has full awareness of virtualization, and integrates with vSphere using vSphere API.</td></tr><tr class="even"><td>Fault Tolerance is rarely used due to cost and complexity. You need specialized hardware to achieve it.</td><td>Fault tolerance is an on-demand feature as it is software-based. For example, you can temporarily turn it on during batch jobs run.</td></tr><tr class="odd"><td>Anti-Virus is installed on every server. Management is harder in a large environment.</td><td>Anti-Virus runs as an Agent VM per ESXi Host. It is agentless to the Guest OS and hence, is no longer visible by malware. A popular solution is Trend Micro Deep Security.</td></tr></tbody></table>
+<h2 id="storage-function">Storage Function</h2>
+<table>
+  <thead>
+      <tr>
+          <th><strong>HDDC</strong></th>
+          <th><strong>SDDC</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1,000 physical servers (just an example, so we can provide a comparison), where IOPS and capacity do not impact each another. A relatively static environment from a storage point of view because normally, only 10 percent of these machines are on SAN/NAS due to cost.</td>
+          <td>It has a maximum of 2,000 interdependent VMs, which impact one another. A very dynamic environment where management becomes critical because almost all VMs are on a shared storage, including distributed storage.</td>
+      </tr>
+      <tr>
+          <td>Every server on SAN has its own dedicated LUN. Some data centers, such as databases, may have multiple LUNs.</td>
+          <td>Most VMs do not use RDM. They use VMDK and share the VMFS or NFS datastore. The VMDK files may reside in different datastores.</td>
+      </tr>
+      <tr>
+          <td>Storage migration is a major downtime, even within the same array. A lot of manual work is required.</td>
+          <td>Storage migration is live with storage vMotion. Intra-array is faster due to VAAI API.</td>
+      </tr>
+      <tr>
+          <td>Backup, especially in the x64 architecture, is done with backup agents. As SAN is relatively more expensive and SAN boot is complex at scale, backup is done via the backup LAN and with the agent installed. This creates its own problem as the backup agents have to be deployed, patched, upgraded, and managed.</td>
+          <td>The backup service is provided by the hypervisor. It is agentless as far as the VM is concerned. Most backup softwares use VMware VADP API to back up by taking snapshot. Windows Volume Shadow Services (VSS) provides application-consistent backups through quiesing application during backup execution. Non-VSS environments can use pre-post thaw scripts to stop necessary services prior to VM snapshot to provide crash-consistent backups of applications and underlying OS.</td>
+      </tr>
+      <tr>
+          <td>The backup process creates high disk I/O, impacting the application performance. Because the backup traffic is network intensive and carries sensitive data, an entire network is born for backup purposes.</td>
+          <td>Because backup is performed outside the VM, there is no performance impact on the application or Guest OS. There is also no security risk, as the Guest OS Admin cannot see the backup network.</td>
+      </tr>
+      <tr>
+          <td>Storage&rsquo;s QoS is taken care of by an array, although the array has no control over the demand of IOPS coming from servers.</td>
+          <td>Storage&rsquo;s QoS is taken care of by vSphere Storage I/O Control, which has full control over every VM.</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="network-function">Network Function</h2>
+<table>
+  <thead>
+      <tr>
+          <th>HDDC</th>
+          <th>SDDC</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>The access network is typically 1 GE, as it is sufficient for most servers. Typically, it is a top-of-rack entry-level switch.</td>
+          <td>The top-of-rack switch is generally replaced with the end-of-row distribution switch, as the access switch is completely virtualized. ESXi typically uses 10 GE, with some having 4x 10 GE connection.</td>
+      </tr>
+      <tr>
+          <td>VLAN is normally used for segregation. This results in VLAN complexity.</td>
+          <td>VLAN is not required (traffic within the same VLAN can be controlled) for segregation by NSX.</td>
+      </tr>
+      <tr>
+          <td>Impacted by the spanning tree.</td>
+          <td>No Spanning Tree.</td>
+      </tr>
+      <tr>
+          <td>A switch must learn the MAC address as it comes with the server.</td>
+          <td>No need to learn the MAC address as it&rsquo;s given by vSphere.</td>
+      </tr>
+      <tr>
+          <td>Network QoS is provided by core switches.</td>
+          <td>Network QoS by vSphere and NSX.</td>
+      </tr>
+      <tr>
+          <td>DMZ Zone is physically separate. Separation is done at the IP layer. IDS/IPS deployment is normally limited in DMZ due to cost and complexity.</td>
+          <td>DMZ Zone is logically separate. Separation is not limited to IP and done at the hypervisor layer. IDS/IPS is deployed in all zones as it is also hypervisor-based.</td>
+      </tr>
+      <tr>
+          <td>No DR Test network is required. As a result, the same hostname cannot exist on DR Site, making a true DR Test <em>impossible</em> without shutting down production servers.</td>
+          <td>DR Test Network is required. The same hostname can exist on any site as a result. This means DR Test can be done anytime as it does not impact production.</td>
+      </tr>
+      <tr>
+          <td>Firewall is not part of the server. It is typically centrally located. It is not aware of the servers as it&rsquo;s completely independent from it.</td>
+          <td>Firewall becomes a built-in property of the VM. The firewall policy follows the VM. When a VM is vMotion-ed to another host, the policy <em>follows</em> it and is enforced by the hypervisor.</td>
+      </tr>
+      <tr>
+          <td>Firewall scales vertically and independently from the workload (demand from servers). This makes sizing difficult. IT ends up buying the biggest firewall they can afford, hence increasing the cost.</td>
+          <td>Firewall scales horizontally. It grows with demand, since it is deployed as part of the hypervisor (using NSX). Upfront cost is lower as there is no need to buy a pair of high-end firewall upfront.</td>
+      </tr>
+      <tr>
+          <td>Traffic has to be deliberately directed to the firewall. Without it, the traffic &ldquo;escapes&rdquo; the firewall.</td>
+          <td>All traffic passes the firewall as it&rsquo;s embedded into the VM and hypervisor. It cannot &ldquo;escape&rdquo; the firewall.</td>
+      </tr>
+      <tr>
+          <td>Firewall rules are typically based on the IP address. Changing the IP address equals changing the rules. This results in a database of long and complicated rules. After a while, the firewall admin dare not delete any rules as the database becomes huge and unmanageable.</td>
+          <td>Rules are not tied to the IP address or hostname. This makes rules much easier. For example, we can say that all VMs in the Contractor Desktop pool cannot talk to each other. This is just one rule. When a VM gets added to this pool, the rule is applied to it.</td>
+      </tr>
+      <tr>
+          <td>Load Balancer is typically centrally located. Just like the firewall, sizing becomes difficult and the cost goes higher.</td>
+          <td>Load Balancer is distributed. It scales with the demand. Adding hypervisor means adding load balancer capacity.</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="people--process">People &amp; Process</h2>
+<p>How many people does it take to manage 1 rack worth of hardware?</p>
+<p>Your answer is likely &ldquo;not many.&rdquo; After all, it is just 1 standard rack. The entire thing barely occupies a small server room.</p>
+<p>If your entire data center can fit inside 1 standard rack of equipment, that makes a small operation. It is indeed a small operation in physical world. However, in SDDC, you can achieve 2000 VM per rack from performance point of view. We are using a standard 30:1 consolidation ratio, which is possible with the latest Intel or AMD. From networking viewpoint, <a href="https://www.ipspace.net/About_Ivan_Pepelnjak">Ivan Pepelnjak</a> has in fact shared back in October 2014 that &ldquo;2000 VMs can easily fit onto 40 servers&rdquo;. He elaborates the calculation <a href="http://blog.ipspace.net/2014/10/all-you-need-are-two-top-of-rack.html">here</a>. He further <a href="http://blog.ipspace.net/2015/11/1000-vm-per-rack-is-perfectly-realistic.html">updates</a> that in November 2015.</p>
+<p>The above calculation takes into account your Infrastructure VM. Infrastructure functions that used to be provided by hardware (e.g. storage replication, firewall, load balancer) are now delivered as VM. You may run 100 of such VMs, depending on the type of services that your SDDC needs to provide.</p>
+<table>
+  <thead>
+      <tr>
+          <th>HDDC</th>
+          <th>SDDC</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>There&rsquo;s a clear silo between the compute, storage, and network teams. In organizations where the IT team is big, the DR team, Windows team, and Linux team could also be separate teams. There is also a separation between the engineering, integration (projects), and operations (business as usual) teams. The team, in turn, needs layers of management. This results in rigidity in IT.</td>
+          <td>With virtualization, IT is taking the game to the next level. It&rsquo;s a lot more powerful than the previous architecture. When you take the game to the next level, the enemy is also stronger. In this case, the expertise required is deeper and the experience requirement is more extensive.</td>
+      </tr>
+      <tr>
+          <td>Relatively more headcount required in IT, with lower skills set.</td>
+          <td>Earlier, you may have needed 10 people to manage 1,000 physical servers. With virtualization, you might only need three people to manage 2,000 VMs on 50 ESXi hosts. However, these 3 people have deeper expertise and longer experience than the 10 people combined.</td>
+      </tr>
+      <tr>
+          <td>DevOps is a concept that applies to developers or application team. It does not apply to Infrastructure team.</td>
+          <td>The IaaS team needs to have its own &ldquo;DevOps&rdquo; too. As the infrastructure becomes software, there is a need for continuous flow from Architect -&gt; Engineer -&gt; Implement -&gt; Operate -&gt; Upgrade</td>
+      </tr>
+  </tbody>
+</table>
+<p>I&rsquo;ll end this chapter with a From the main menu, click Administration and in the left pane click Configuration -&gt; Super Metrics.</p>
+
+   
+
+   
+   <div class="navigation-buttons clr-row">
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+
+
+   
+   
+   
+   <div class="clr-col nav-prev">
+      <a class="nav-prev" href="/vmware-operations-guide-web/miscellaneous/chapter-3---sddc-vs-iaas/4.3.1-vm-it-is-not-what-you-think/" title="1. VM, it is not what you think!"><i class="fa fa-chevron-left"></i></a>
+   </div>
+
+   
+   
+   <div class="clr-col nav-next">
+      <a class="nav-next" href="/vmware-operations-guide-web/miscellaneous/chapter-4---super-metrics/" title="Chapter 4 - Super Metrics"><i class="fa fa-chevron-right"></i></a>
+   </div>
+   
+   
+</div>
+
+<hr>
+This page was last updated on June 16, 2021 by 
+with commit message: ""
+
+
+</div>
+
+
+</div>
+
+<div id="navigation">
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+
+
+   
+   
+   
+   <a class="nav nav-prev" href="/vmware-operations-guide-web/miscellaneous/chapter-3---sddc-vs-iaas/4.3.1-vm-it-is-not-what-you-think/" title="1. VM, it is not what you think!"> <i class="fa fa-chevron-left"></i></a>
+   
+   
+   <a class="nav nav-next" href="/vmware-operations-guide-web/miscellaneous/chapter-4---super-metrics/" title="Chapter 4 - Super Metrics" style="margin-right: 0px;"><i
+         class="fa fa-chevron-right"></i></a>
+   
+   
+</div>
+
+</section>
+<div
+   style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+   <div
+      style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+   </div>
+</div>
+</div><nav id="sidebar" class="sidenav">
+      <section class="sidenav-content">
+      
+
+
+
+<ul class="menu">
+   <li data-nav-id="/" class="home-item">
+      <a href="/">
+        <i class="fa fa-fw fa-home"></i>
+      </a>
+   </li>
+   
+   
+   
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/acknowledgements/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/acknowledgements/"><i class="fas fa-users"></i> Acknowledgements</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/acknowledgements/contributors/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/acknowledgements/contributors/"><i class="fas fa-code-branch"></i> Contributors</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+   
+   
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/"><i class="fas fa-user-tie"></i> Operations Management</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-1---overview/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-1---overview/">Chapter 1 - Overview</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.1-complaint-based-operations/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.1-complaint-based-operations/">1. Complaint-Based Operations</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.2-purpose-driven-architecture/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.2-purpose-driven-architecture/">2. Purpose-Driven Architecture</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.3-multi-cloud-operations/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.3-multi-cloud-operations/">3. Multi-Cloud Operations</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.4-begin-with-the-end-in-mind/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.4-begin-with-the-end-in-mind/">4. Begin with the end in mind</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.5-vcdx-vs-vcox/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.5-vcdx-vs-vcox/">5. VCDX vs. VCOX</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.6-the-restaurant-analogy/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.6-the-restaurant-analogy/">6. The Restaurant Analogy</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.7-service-level-agreement/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.7-service-level-agreement/">7. Service Level Agreement</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.8-pillar-process-people/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.8-pillar-process-people/">8. Pillar | Process | People</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.9-insight-vs-alert/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-1---overview/1.1.9-insight-vs-alert/">9. Insight vs. Alert</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-2---performance-management/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-2---performance-management/">Chapter 2 - Performance Management</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.1-a-day-in-the-life/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.1-a-day-in-the-life/">1. A Day In The Life of a Cloud Admin</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.2-the-3-realms/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.2-the-3-realms/">2. The 3 Realms</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.3-plan-monitor-troubleshoot-optimize/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.3-plan-monitor-troubleshoot-optimize/">3. Plan | Monitor | Troubleshoot | Optimize</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.4-contention-vs-utilization/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.4-contention-vs-utilization/">4. Contention vs Utilization</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.5-performance-vs-capacity/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.5-performance-vs-capacity/">5. Performance vs Capacity</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.6-performance-sla/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.6-performance-sla/">6. Performance SLA</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.7-kpi-vs-sla/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.7-kpi-vs-sla/">7. KPI vs. SLA</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.8-depth-vs-breadth/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.8-depth-vs-breadth/">8. Depth vs Breadth</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.9-leading-indicators/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.9-leading-indicators/">9. Leading Indicators</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.10-baseline-profiling/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.10-baseline-profiling/">10. Baseline Profiling</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.11-optimized-performance/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.11-optimized-performance/">11. Optimized Performance</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.12-root-cause-analysis/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-2---performance-management/1.2.12-root-cause-analysis/">12. Root Cause Analysis</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/">Chapter 3 - Capacity Management</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.1-good-advice/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.1-good-advice/">1. &#34;Good&#34; Advice</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.2-end-to-end-capacity/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.2-end-to-end-capacity/">2. End-to-End Capacity</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.3-capacity-planning/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.3-capacity-planning/">3. Capacity Planning</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.4-demand-model/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.4-demand-model/">4. Demand Model</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.5-allocation-model/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.5-allocation-model/">5. Allocation Model</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.6-usable-capacity/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.6-usable-capacity/">6. Usable Capacity</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.7-projection/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.7-projection/">7. Projection</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.8-peak-utilization/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.8-peak-utilization/">8. Peak Utilization</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.9-storage-capacity/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.9-storage-capacity/">9. Storage Capacity</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.10-optimized-capacity/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.10-optimized-capacity/">10. Optimized Capacity</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.11-reclamation/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.11-reclamation/">11. Reclamation</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.12-rightsizing/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-3---capacity-management/1.3.12-rightsizing/">12. Rightsizing</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-4---configuration-management/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-4---configuration-management/">Chapter 4 - Configuration Management</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-4---configuration-management/1.4.1-overview/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-4---configuration-management/1.4.1-overview/">1. Overview</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-4---configuration-management/1.4.2-review-flow/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-4---configuration-management/1.4.2-review-flow/">2. Review Flow</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-4---configuration-management/1.4.3-plan-vs-reality/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-4---configuration-management/1.4.3-plan-vs-reality/">3. Plan vs Reality</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-5---cost-management/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-5---cost-management/">Chapter 5 - Cost Management</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-5---cost-management/1.5.1-dare-to-compare/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-5---cost-management/1.5.1-dare-to-compare/">1. Dare to Compare</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-5---cost-management/1.5.2-price/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-5---cost-management/1.5.2-price/">2. Price</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-5---cost-management/1.5.3-cost/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-5---cost-management/1.5.3-cost/">3. Cost</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/">Chapter 6 - Compliance Management</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.1-overview/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.1-overview/">1. Overview</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.2-security-approach/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.2-security-approach/">2. Security Approach</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.3-continuous-compliance/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.3-continuous-compliance/">3. Continuous Compliance</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.4-how-the-policies-work/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.4-how-the-policies-work/">4. How the Policies Work</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.5-regulatory-benchmarks/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.5-regulatory-benchmarks/">5. Regulatory Benchmarks</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.6-custom-benchmarks/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.6-custom-benchmarks/">6. Custom Benchmarks</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.7-checking-the-result/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-6---compliance-management/1.6.7-checking-the-result/">7. Checking the Result</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-7---availability-management/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-7---availability-management/">Chapter 7 - Availability Management</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-7---availability-management/1.7.1-standalone-system/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-7---availability-management/1.7.1-standalone-system/">1. Standalone System</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-7---availability-management/1.7.2-multi-component-system/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-7---availability-management/1.7.2-multi-component-system/">2. Multi Component System</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-7---availability-management/1.7.3-availability-reporting/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-7---availability-management/1.7.3-availability-reporting/">3. Availability Reporting</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/operations-management/chapter-7---availability-management/1.7.4-disaster-avoidance-and-recovery/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/operations-management/chapter-7---availability-management/1.7.4-disaster-avoidance-and-recovery/">4. Disaster Avoidance and Recovery</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+   
+   
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/"><i class="fas fa-chart-line"></i> Metrics</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-1---overview/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-1---overview/">Chapter 1 - Overview</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-1---overview/2.1.1-nuances-in-metrics/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-1---overview/2.1.1-nuances-in-metrics/">1. Nuances in Metrics</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-1---overview/2.1.2-guest-os-vs-vm/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-1---overview/2.1.2-guest-os-vs-vm/">2. Guest OS vs VM</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-1---overview/2.1.3-roll-up-vs-aggregation/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-1---overview/2.1.3-roll-up-vs-aggregation/">3. Roll-Up vs Aggregation</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-1---overview/2.1.4-resource-management/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-1---overview/2.1.4-resource-management/">4. Resource Management</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-1---overview/2.1.5-esxtop/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-1---overview/2.1.5-esxtop/">5. ESXTOP</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-2---cpu-metrics/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-2---cpu-metrics/">Chapter 2 - CPU Metrics</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-2---cpu-metrics/2.2.1-guest-os/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-2---cpu-metrics/2.2.1-guest-os/">1. Guest OS</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-2---cpu-metrics/2.2.2-vm/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-2---cpu-metrics/2.2.2-vm/">2. VM</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-2---cpu-metrics/2.2.3-esxi-host/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-2---cpu-metrics/2.2.3-esxi-host/">3. ESXi Host</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-2---cpu-metrics/2.2.4-quiz-time/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-2---cpu-metrics/2.2.4-quiz-time/">4. Quiz Time!</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/">Chapter 3 - Memory Metrics</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/2.3.1-virtual-memory/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/2.3.1-virtual-memory/">1. Virtual Memory</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/2.3.2-guest-os-vs-vm/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/2.3.2-guest-os-vs-vm/">2. Guest OS vs VM</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/2.3.3-guest-os/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/2.3.3-guest-os/">3. Guest OS</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/2.3.4-vm/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/2.3.4-vm/">4. VM</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/2.3.5-esxi-host/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/2.3.5-esxi-host/">5. ESXi Host</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/2.3.6-other-metrics/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-3---memory-metrics/2.3.6-other-metrics/">6. Other Metrics</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/">Chapter 4 - Storage Metrics</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/2.4.1-the-layers-in-storage/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/2.4.1-the-layers-in-storage/">1. The Layers in Storage</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/2.4.2-vm/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/2.4.2-vm/">2. VM</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/2.4.3-esxi-host/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/2.4.3-esxi-host/">3. ESXi Host</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/2.4.4-datastore/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/2.4.4-datastore/">4. Datastore</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/2.4.5-vsan/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/2.4.5-vsan/">5. vSAN</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/2.4.6-storage-array/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-4---storage-metrics/2.4.6-storage-array/">6. Storage Array</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-5---network-metrics/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-5---network-metrics/">Chapter 5 - Network Metrics</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-5---network-metrics/2.5.1-why-network-monitoring-is-unique/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-5---network-metrics/2.5.1-why-network-monitoring-is-unique/">1. Why Network Monitoring Is Unique</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-5---network-metrics/2.5.2-sddc-network-monitoring/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-5---network-metrics/2.5.2-sddc-network-monitoring/">2. SDDC Network Monitoring</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-5---network-metrics/2.5.3-guest-os/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-5---network-metrics/2.5.3-guest-os/">3. Guest OS</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-5---network-metrics/2.5.4-vm/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-5---network-metrics/2.5.4-vm/">4. VM</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-5---network-metrics/2.5.5-esxi-host/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-5---network-metrics/2.5.5-esxi-host/">5. ESXi Host</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-5---network-metrics/2.5.6-distributed-switch/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-5---network-metrics/2.5.6-distributed-switch/">6. Distributed Switch</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-6---other-metrics/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-6---other-metrics/">Chapter 6 - Other Metrics</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-6---other-metrics/2.6.1-troubleshooting-metrics/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-6---other-metrics/2.6.1-troubleshooting-metrics/">1. Troubleshooting Metrics</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-6---other-metrics/2.6.2-vmkernel/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-6---other-metrics/2.6.2-vmkernel/">2. VMKernel</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-6---other-metrics/2.6.3-vsphere-cluster/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-6---other-metrics/2.6.3-vsphere-cluster/">3. vSphere Cluster</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-6---other-metrics/2.6.4-vmware-tools/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-6---other-metrics/2.6.4-vmware-tools/">4. VMware Tools</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/metrics/chapter-6---other-metrics/2.6.5-miscellaneous/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/metrics/chapter-6---other-metrics/2.6.5-miscellaneous/">5. Miscellaneous</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+   
+   
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/"><i class="fas fa-tachometer-alt"></i> Dashboards</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/">Chapter 1 - Design Considerations</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.1-dashboard-alert-report/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.1-dashboard-alert-report/">1. Dashboard | Alert | Report</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.2-the-art-of-dashboard/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.2-the-art-of-dashboard/">2. The Art of Dashboard</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.3-interaction/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.3-interaction/">3. Interaction</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.4-dashboard-to-dashboard-navigation/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.4-dashboard-to-dashboard-navigation/">4. Dashboard to Dashboard Navigation</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.5-color-as-meaning/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.5-color-as-meaning/">5. Color as Meaning</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.6-table-as-insight/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.6-table-as-insight/">6. Table as Insight</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.7-bar-chart-as-insight/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.7-bar-chart-as-insight/">7. Bar Chart as Insight</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.8-distribution-chart-limitation/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.8-distribution-chart-limitation/">8 Distribution Chart Limitation</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.9-dashboards-at-scale/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.9-dashboards-at-scale/">9. Dashboards at Scale</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.10-dashboard-getting-started/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-1---design-considerations/3.1.10-dashboard-getting-started/">10. Dashboard Getting Started</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/">Chapter 2 - Performance Dashboards</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.1-design-consideration/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.1-design-consideration/">1. Design Consideration</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.2-cluster-contention/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.2-cluster-contention/">2. Cluster Contention</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.3-cluster-utilization/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.3-cluster-utilization/">3. Cluster Utilization</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.4-esxi-contention/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.4-esxi-contention/">4. ESXi Contention</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.5-esxi-utilization/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.5-esxi-utilization/">5. ESXi Utilization</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.6-datastore-performance/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.6-datastore-performance/">6. Datastore Performance</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.7-vsan-contention/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.7-vsan-contention/">7. vSAN Contention</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.8-vsan-utilization/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.8-vsan-utilization/">8. vSAN Utilization</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.9-network-performance/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.9-network-performance/">9. Network Performance</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.10-vm-contention/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.10-vm-contention/">10. VM Contention</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.11-vm-utilization/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.11-vm-utilization/">11. VM Utilization</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.12-guest-os-performance-profiling/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.12-guest-os-performance-profiling/">12. Guest OS Performance Profiling</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.13-storage-heavy-hitters/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.13-storage-heavy-hitters/">13. Storage Heavy Hitters</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.14-network-top-talkers/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-2---performance-dashboards/3.2.14-network-top-talkers/">14. Network Top Talkers</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/">Chapter 3 - Capacity Dashboards</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.1-design-considerations/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.1-design-considerations/">1. Design Considerations</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.2-cluster-capacity/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.2-cluster-capacity/">2. Cluster Capacity</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.3-esxi-capacity/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.3-esxi-capacity/">3. ESXi Capacity</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.4-datastore-capacity/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.4-datastore-capacity/">4. Datastore Capacity</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.5-vsan-capacity/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.5-vsan-capacity/">5. vSAN Capacity</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.6-vm-capacity/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.6-vm-capacity/">6. VM Capacity</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.7-vm-reclamation/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.7-vm-reclamation/">7. VM Reclamation</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.8-vm-rightsizing/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-3---capacity-dashboards/3.3.8-vm-rightsizing/">8. VM Rightsizing</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/">Chapter 4 - Configuration Dashboards</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.1-design-considerations/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.1-design-considerations/">1. Design Considerations</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.2-vm-configuration/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.2-vm-configuration/">2. VM Configuration</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.3-cluster-configuration/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.3-cluster-configuration/">3. Cluster Configuration</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.4-esxi-configuration/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.4-esxi-configuration/">4. ESXi Configuration</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.5-network-configuration/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.5-network-configuration/">5. Network Configuration</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.6-vsan-configuration/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.6-vsan-configuration/">6. vSAN Configuration</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.7-consumer-correct-it/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.7-consumer-correct-it/">7. Consumer / Correct It?</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.8-consumer-update-it/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.8-consumer-update-it/">8. Consumer / Update It?</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.9-consumer-simplify-it/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.9-consumer-simplify-it/">9. Consumer / Simplify It?</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.10-consumer-optimize-it/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.10-consumer-optimize-it/">10. Consumer / Optimize It?</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.11-provider-correct-it/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.11-provider-correct-it/">11. Provider / Correct It?</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.12-provider-update-it/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.12-provider-update-it/">12. Provider / Update It?</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.13-provider-simplify-it/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.13-provider-simplify-it/">13. Provider / Simplify It?</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.14-provider-optimize-it/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-4---configuration-dashboards/3.4.14-provider-optimize-it/">14. Provider / Optimize It?</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-5---availability-dashboards/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-5---availability-dashboards/">Chapter 5 - Availability Dashboards</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-5---availability-dashboards/3.5.1-vm-availability/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-5---availability-dashboards/3.5.1-vm-availability/">1. VM Availability</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-5---availability-dashboards/3.5.2-vsphere-availability/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-5---availability-dashboards/3.5.2-vsphere-availability/">2. vSphere Availability</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-6---noc-dashboards/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-6---noc-dashboards/">Chapter 6 - NOC Dashboards</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-6---noc-dashboards/3.6.1-design-considerations/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-6---noc-dashboards/3.6.1-design-considerations/">1. Design Considerations</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-6---noc-dashboards/3.6.2-live-cluster-performance-dashboard/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-6---noc-dashboards/3.6.2-live-cluster-performance-dashboard/">2. Live! Cluster Performance Dashboard</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-6---noc-dashboards/3.6.3-live-cluster-utilization-dashboard/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-6---noc-dashboards/3.6.3-live-cluster-utilization-dashboard/">3. Live Cluster Utilization Dashboard</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-6---noc-dashboards/3.6.4-live-heavy-hitter-dashboard/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-6---noc-dashboards/3.6.4-live-heavy-hitter-dashboard/">4. Live! Heavy Hitter Dashboard</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-7---executive-summary-dashboards/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-7---executive-summary-dashboards/">Chapter 7 - Executive Summary Dashboards</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-7---executive-summary-dashboards/3.7.1-design-considerations/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-7---executive-summary-dashboards/3.7.1-design-considerations/">1. Design Considerations</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-7---executive-summary-dashboards/3.7.2-inventory-summary/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-7---executive-summary-dashboards/3.7.2-inventory-summary/">2. Inventory Summary</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-7---executive-summary-dashboards/3.7.3-capacity-summary/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-7---executive-summary-dashboards/3.7.3-capacity-summary/">3. Capacity Summary</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-8---true-visibility-suite-dashboards/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-8---true-visibility-suite-dashboards/">Chapter 8 - True Visibility Suite Dashboards</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-8---true-visibility-suite-dashboards/3.8.1-microsoft-sql-server/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-8---true-visibility-suite-dashboards/3.8.1-microsoft-sql-server/">1. Microsoft SQL Server</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-8---true-visibility-suite-dashboards/3.8.2-cisco-ucs-fabric-interconnect/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-8---true-visibility-suite-dashboards/3.8.2-cisco-ucs-fabric-interconnect/">2. Cisco UCS Fabric Interconnect</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-8---true-visibility-suite-dashboards/3.8.3-netapp-storage/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-8---true-visibility-suite-dashboards/3.8.3-netapp-storage/">3. NetApp Storage</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-9---other-dashboards/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-9---other-dashboards/">Chapter 9 - Other Dashboards</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-9---other-dashboards/3.9.1-green-operations/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-9---other-dashboards/3.9.1-green-operations/">1. Green Operations</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-9---other-dashboards/3.9.2-multi-tier-applications/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-9---other-dashboards/3.9.2-multi-tier-applications/">2. Multi-Tier Applications</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-9---other-dashboards/3.9.3-vm-migration/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-9---other-dashboards/3.9.3-vm-migration/">3. VM Migration</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-9---other-dashboards/3.9.4-role-based-dashboard/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-9---other-dashboards/3.9.4-role-based-dashboard/">4. Role-Based Dashboard</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/dashboards/chapter-9---other-dashboards/3.9.5-vsan-file-services/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/dashboards/chapter-9---other-dashboards/3.9.5-vsan-file-services/">5. vSAN File Services</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+   
+   
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/"><i class="fas fa-random"></i> Miscellaneous</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-1---quiz-answers/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-1---quiz-answers/">Chapter 1 - Quiz Answers</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-1---quiz-answers/4.1.1-part-1-operations-management/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-1---quiz-answers/4.1.1-part-1-operations-management/">1. Part 1 - Operations Management</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-1---quiz-answers/4.1.2-part-2-metrics/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-1---quiz-answers/4.1.2-part-2-metrics/">2. Part 2 - Metrics</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-1---quiz-answers/4.1.3-part-3-dashboards/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-1---quiz-answers/4.1.3-part-3-dashboards/">3. Part 3 - Dashboards</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-2---operational-maturity/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-2---operational-maturity/">Chapter 2 - Operational Maturity</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-2---operational-maturity/4.2.1-gap-analysis/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-2---operational-maturity/4.2.1-gap-analysis/">1. Gap Analysis</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-3---sddc-vs-iaas/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-3---sddc-vs-iaas/">Chapter 3 - SDDC vs. IaaS</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-3---sddc-vs-iaas/4.3.1-vm-it-is-not-what-you-think/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-3---sddc-vs-iaas/4.3.1-vm-it-is-not-what-you-think/">1. VM, it is not what you think!</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-3---sddc-vs-iaas/4.3.2-sddc-vs-hddc/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-3---sddc-vs-iaas/4.3.2-sddc-vs-hddc/">2. SDDC vs HDDC</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-4---super-metrics/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-4---super-metrics/">Chapter 4 - Super Metrics</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-4---super-metrics/4.4.1-what-is-a-super-metric/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-4---super-metrics/4.4.1-what-is-a-super-metric/">1. What Is a Super Metric?</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-4---super-metrics/4.4.2-how-to-create-a-super-metric/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-4---super-metrics/4.4.2-how-to-create-a-super-metric/">2. How to Create a Super Metric</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-4---super-metrics/4.4.3-examples/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-4---super-metrics/4.4.3-examples/">3. Examples</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-4---super-metrics/4.4.4-advanced-examples/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-4---super-metrics/4.4.4-advanced-examples/">4. Advanced Examples</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-5---log-insight/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-5---log-insight/">Chapter 5 - Log Insight</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-5---log-insight/4.5.1-vsphere/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-5---log-insight/4.5.1-vsphere/">1. vSphere</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-5---log-insight/4.5.2-vrealize-operations/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-5---log-insight/4.5.2-vrealize-operations/">2. vRealize Operations</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-6---automation/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-6---automation/">Chapter 6 - Automation</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-6---automation/4.6.1-introduction/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-6---automation/4.6.1-introduction/">1. Introduction</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-6---automation/4.6.2-outgoing-communication/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-6---automation/4.6.2-outgoing-communication/">2. Outgoing Communication</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-6---automation/4.6.3-incoming-communication/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-6---automation/4.6.3-incoming-communication/">3. Incoming Communication</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-6---automation/4.6.4-closing-the-loop/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-6---automation/4.6.4-closing-the-loop/">4. Closing the Loop</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-7---vmware-it-operations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-7---vmware-it-operations/">Chapter 7 - VMware IT Operations</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-7---vmware-it-operations/4.7.1-background/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-7---vmware-it-operations/4.7.1-background/">1. Background</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-7---vmware-it-operations/4.7.2-monitoring/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-7---vmware-it-operations/4.7.2-monitoring/">2. Monitoring</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-7---vmware-it-operations/4.7.3-post-implementation-review/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-7---vmware-it-operations/4.7.3-post-implementation-review/">3. Post-Implementation Review</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/">Chapter 8 - VDI &amp; DaaS</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.1-roles-and-responsibilities/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.1-roles-and-responsibilities/">1. Roles &amp; Responsibilities</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.2-rds-vs-vdi/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.2-rds-vs-vdi/">2. RDS vs VDI</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.3-object-model/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.3-object-model/">3. Object Model</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.4-performance-management/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.4-performance-management/">4. Performance Management</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.5-performance-dashboards/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.5-performance-dashboards/">5. Performance Dashboards</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.6-capacity/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.6-capacity/">6. Capacity</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.7-availability/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.7-availability/">7. Availability</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.8-configuration/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.8-configuration/">8. Configuration</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.9-horizon-inventory/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.9-horizon-inventory/">9. Horizon Inventory</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.10-horizon-infrastructure/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-8---vdi--daas/4.8.10-horizon-infrastructure/">10. Horizon Infrastructure</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-9---infrastructure-architect/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-9---infrastructure-architect/">Chapter 9 - Infrastructure Architect</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-9---infrastructure-architect/4.9.1-the-chef-and-his-cooking/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-9---infrastructure-architect/4.9.1-the-chef-and-his-cooking/">1. The Chef and His Cooking</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-9---infrastructure-architect/4.9.2-global-role/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-9---infrastructure-architect/4.9.2-global-role/">2. Global Role</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-9---infrastructure-architect/4.9.3-delivering-a-lasting-presentation/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-9---infrastructure-architect/4.9.3-delivering-a-lasting-presentation/">3. Delivering a Lasting Presentation</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/miscellaneous/chapter-9---infrastructure-architect/4.9.4-about-the-author/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/miscellaneous/chapter-9---infrastructure-architect/4.9.4-about-the-author/">4. About the Author</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+   
+   
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/downloads/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/downloads/"><i class="fas fa-download"></i> Downloads</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/downloads/vsphere-metrics/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/downloads/vsphere-metrics/">vSphere Metrics</a>
+      </div>
+    </li>
+    <li data-nav-id="https://orsox89.github.io/vmware-operations-guide-web/downloads/ops-your-world/" class="dd-item
+        ">
+      <div>
+      <a href="/vmware-operations-guide-web/downloads/ops-your-world/">Operationalize Your World</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+   
+   
+</ul>
+
+
+
+<section id="shortcuts">
+   <h3>Links</h3>
+   <ul class="ul-nav-list">
+      
+      <li>
+         <a class="padding" href="https://www.funkycloudmedina.com/">Hosted on FunkyCloudMedina</a>
+      </li>
+      
+      <li>
+         <a class="padding" href="https://learncloudassembly.github.io/">Learn Cloud Assembly</a>
+      </li>
+      
+      <li>
+         <a class="padding" href="https://learnservicebroker.github.io/">Learn Service Broker</a>
+      </li>
+      
+      <li>
+         <a class="padding" href="https://learncodestream.github.io/">Learn Code Stream</a>
+      </li>
+      
+      <li>
+         <a class="padding" href="https://learnsaltstackconfig.github.io/">Learn Salt Stack</a>
+      </li>
+      
+   </ul>
+</section>
+
+
+
+<section id="shortcuts">
+   <h3>Contribute</h3>
+<div style="padding-left: 1em;">
+    
+    <a class="github-button" href="https://github.com/TheNewStellW/vmware-operations-guide/subscription" data-icon="octicon-eye" data-size="small" data-show-count="true" aria-label="Watch TheNewStellW/vmware-operations-guide on GitHub">Watch</a>
+    
+    <a class="github-button" href="https://github.com/TheNewStellW/vmware-operations-guide" data-icon="octicon-star" data-show-count="true" aria-label="Star TheNewStellW/vmware-operations-guide on GitHub">Star</a>
+    
+    <a class="github-button" href="https://github.com/TheNewStellW/vmware-operations-guide/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork TheNewStellW/vmware-operations-guide on GitHub">Fork</a>
+    
+    <a class="github-button" href="https://github.com/TheNewStellW/vmware-operations-guide/issues" data-icon="octicon-issue-opened" data-show-count="true" aria-label="Issue TheNewStellW/vmware-operations-guide on GitHub">Issue</a>
+    
+    <a class="github-button" href="https://github.com/TheNewStellW/vmware-operations-guide/discussions" data-icon="octicon-comment-discussion" aria-label="Discuss TheNewStellW/vmware-operations-guide on GitHub">Discuss</a>
+</div>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</section>
+
+
+      </section>
+</nav></div>
+<script src="/vmware-operations-guide-web/js/clipboard.min.js?1754975713"></script>
+<script src="/vmware-operations-guide-web/js/perfect-scrollbar.min.js?1754975713"></script>
+<script src="/vmware-operations-guide-web/js/perfect-scrollbar.jquery.min.js?1754975713"></script>
+<script src="/vmware-operations-guide-web/js/jquery.sticky.js?1754975713"></script>
+<script src="/vmware-operations-guide-web/js/featherlight.min.js?1754975713"></script>
+<script src="/vmware-operations-guide-web/js/highlight.pack.js?1754975713"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/vmware-operations-guide-web/js/modernizr.custom-3.6.0.js?1754975713"></script>
+<script src="/vmware-operations-guide-web/js/learn.js?1754975713"></script>
+<script src="/vmware-operations-guide-web/js/hugo-learn.js?1754975713"></script>
+<script src="/vmware-operations-guide-web/js/jquery.dataTables.min.js?1754975713"></script>
+<script src="/vmware-operations-guide-web/js/datatable.js?1754975713"></script>
+<script src="/vmware-operations-guide-web/js/menu.js?1754975713"></script>
+
+<script type="text/javascript" src="/vmware-operations-guide-web/js/lunr.min.js?1754975713"></script>
+<script type="text/javascript" src="/vmware-operations-guide-web/js/auto-complete.js?1754975713"></script>
+<script type="text/javascript">
+   
+       var baseurl = "https:\/\/orsox89.github.io\/vmware-operations-guide-web\/";
+   
+</script>
+<script type="text/javascript" src="/vmware-operations-guide-web/js/search.js?1754975713"></script>
+
+
+
+    
+        <script src="/vmware-operations-guide-web/mermaid/mermaid.js?1754975713"></script>
+    
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+      $(document).ready(function() {
+         $('a[href]').click(function() {
+            let href = $(this).attr('href');
+            if(href && href.length > 0 && href.charAt(0)=== '#') {
+               href = href.replace(':', '\\:');
+               let that = $(href);
+               if(that && that.length) {
+                  let offset = that[0].offsetTop;
+                  if(offset){
+                     let scroll = offset;
+                     if(top) {
+                        $('.content-area').animate({
+                           scrollTop: scroll
+                        }, 1000);
+                     }
+                  }
+               }
+            }
+         });
+      });
+    </script>
+
+
+<p style="text-align:center;font-size:0.6rem !important;margin:0;padding:0.5rem 0;background-color: hsl(198, 0%, 95%);">
+   VMware and the VMware taglines, logos and product names are trademarks or registered trademarks of VMware in the U.S. and other countries.
+</p>
+
+</body>
+
+
+</html>
